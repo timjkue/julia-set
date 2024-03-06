@@ -32,7 +32,7 @@ function createImageDataJulia(width, height) {
     const imageData = ctx.createImageData(width, height);
     const imageDataArray = imageData.data;
 
-    const maxIterations = 500;
+    const maxIterations = parseFloat(document.getElementById('maxIterations').value);
     const escapeRadius = 2;
     const constantX = parseFloat(document.getElementById('constantX').value);
     const constantY = parseFloat(document.getElementById('constantY').value);
@@ -115,7 +115,7 @@ function handleWheel(event) {
     const zoomInput = document.getElementById('zoom');
     const currentZoom = parseFloat(zoomInput.value);
     const newZoom = currentZoom * (1 - event.deltaY * 0.001);
-    zoomInput.value = Math.max(1, Math.min(5000, newZoom));
+    zoomInput.value = Math.max(1, Math.min(100000, newZoom));
     renderJulia();
     event.preventDefault();
 }
