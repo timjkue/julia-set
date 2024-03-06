@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Julia Set</title>
+    <style>
+        #juliaCanvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="juliaCanvas" width="600" height="400"></canvas><br>
+    <label for="shiftX">Shift X:</label>
+    <input type="range" id="shiftX" min="-2" max="2" step="0.01" value="0"><br>
+    <label for="shiftY">Shift Y:</label>
+    <input type="range" id="shiftY" min="-2" max="2" step="0.01" value="0"><br>
+    <label for="zoom">Zoom:</label>
+    <input type="range" id="zoom" min="1" max="5000" value="200"><br>
+    <label for="color">Color:</label>
+    <input type="color" id="color" value="#FFFFFF"><br>
+    <label for="constantX">Constant X:</label>
+    <input type="number" id="constantX" value="-0.7" step="0.01"><br>
+    <label for="constantY">Constant Y:</label>
+    <input type="number" id="constantY" value="0.27015" step="0.01"><br>
+    <button onclick="renderJulia()">Render</button>
+    <script src="julia.js"></script>
+</body>
+</html>
