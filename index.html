@@ -17,15 +17,26 @@
     <label for="shiftY">Shift Y:</label>
     <input type="range" id="shiftY" min="-2" max="2" step="0.01" value="0"><br>
     <label for="zoom">Zoom:</label>
-    <input type="range" id="zoom" min="1" max="100000" value="200"><br>
+    <input type="range" id="zoom" min="100" max="100000" value="200"><br>
     <label for="color">Color:</label>
     <input type="color" id="color" value="#FFFFFF"><br>
-    <label for="constantX">Constant X:</label>
-    <input type="number" id="constantX" value="-0.7" step="0.01"><br>
-    <label for="constantY">Constant Y:</label>
-    <input type="number" id="constantY" value="0.27015" step="0.01"><br>
+    <label>c =</label>
+    <input type="number" id="constantX" value="0" step="0.01">
+    <label>+</label>
+    <input type="number" id="constantY" value="0" step="0.01">
+    <label>i</label><br>
+    <label for="pre">c =</label>
+    <select name="pre" id="pre">
+        <option value="default">default</option>
+        <option value="1-golden ratio">1 - φ (φ is the golden ratio)</option>
+        <option value="-0.4 + 0.6i">-0.4 + 0.6i</option>
+        <option value="0.285 + 0.01i">0.285 + 0.01i</option>
+        <option value="0.8i">0.8i</option>
+        <option value="-0.835 + -0.321i">-0.835 + -0.321i</option>
+        <option value="-0.51 + 0.52i">-0.51 + 0.52i</option>
+    </select><br>
     <label for="maxIterations">Max Iterations</label>
-    <input type="number" id="maxIterations" value="500" step="1"><br>
+    <input type="number" id="maxIterations" value="1000" step="1"><br>
     <button onclick="renderJulia()">Render</button>
     <script src="julia.js"></script>
 </body>

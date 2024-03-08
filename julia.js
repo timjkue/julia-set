@@ -120,6 +120,72 @@ function handleWheel(event) {
     event.preventDefault();
 }
 
+function goldenRatio(){
+    return (1 + Math.sqrt(5))/2
+}
+
+function pre(preValue){
+    let constantX, constantY, maxIterations, zoom;
+
+    switch (preValue) {
+        case '1-golden ratio':
+            constantX = 1 - goldenRatio();
+            constantY = 0;
+            maxIterations = 50;
+            zoom = 200;
+            break;
+        case '-0.4 + 0.6i':
+            constantX = -0.4;
+            constantY = 0.6;
+            maxIterations = 500;
+            zoom = 180;
+            break;
+        case '0.285 + 0.01i':
+            constantX = 0.285;
+            constantY = 0.01;
+            maxIterations = 500;
+            zoom = 150;
+            break;
+        case '0.8i':
+            constantX = 0;
+            constantY = 0.8;
+            maxIterations = 100;
+            zoom = 150;
+            break;
+        case '-0.835 + -0.321i':
+            constantX = -0.835;
+            constantY = -0.321;
+            maxIterations = 100;
+            zoom = 175;
+            break;
+        case '-0.51 + 0.52i':
+            constantX = -0.51;
+            constantY = 0.52;
+            maxIterations = 1000;
+            zoom = 175;
+            break;
+        default:
+            constantX = -0.7;
+            constantY = 0.27015;
+            maxIterations = 1000;
+            zoom = 175;
+    }
+
+    document.getElementById('constantX').value = constantX;
+    document.getElementById('constantY').value = constantY;
+    document.getElementById('shiftX').value = 0;
+    document.getElementById('shiftY').value = 0;
+    document.getElementById('zoom').value = zoom;
+    document.getElementById('maxIterations').value = maxIterations;
+
+    renderJulia();
+}
+
+document.getElementById('pre').addEventListener('change', function() {
+    const preValue = this.value;
+    pre(preValue);
+});
+
 canvas.addEventListener('mousedown', handleMouseDown);
 canvas.addEventListener('mouseup', handleMouseUp);
 canvas.addEventListener('mousemove', handleMouseMove);
@@ -129,4 +195,4 @@ document.getElementById('zoom').addEventListener('input', renderJulia);
 document.getElementById('shiftX').addEventListener('input', renderJulia);
 document.getElementById('shiftY').addEventListener('input', renderJulia);
 
-renderJulia();
+pre('default')
