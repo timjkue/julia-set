@@ -67,17 +67,37 @@ function calculateJulia(cx, cy, maxIterations, escapeRadius, constantX, constant
 
     return i;
 }
-
+console.log(grayscaleToColor(255));
 function adjustColor(iterations, maxIterations, color) {
     if (iterations === maxIterations) {
         return [0, 0, 0];
     } else {
+        let gray = iterations / maxIterations;
         const colorValue = color.slice();
-        colorValue[0] *= iterations / maxIterations;
-        colorValue[1] *= iterations / maxIterations;
-        colorValue[2] *= iterations / maxIterations;
+        if(colorValue[0] == 0 && colorValue[1] == 0 && colorValue[2] == 0){
+            newColor = grayscaleToColor(gray);
+            colorValue[0] = newColor.r;
+            colorValue[1] = newColor.g;
+            colorValue[2] = newColor.b;
+        }
+        else{
+            colorValue[0] *= gray;
+            colorValue[1] *= gray;
+            colorValue[2] *= gray;
+        }
         return colorValue;
     }
+}
+
+function grayscaleToColor(grayscale) {
+    let r = Math.round(grayscale * 255);
+    let g = Math.round((1 - Math.abs(1 - grayscale - 0.5)) * 255);
+    let b = Math.round((1 - grayscale) * 255);
+    return {
+        r: Math.max(0, Math.min(r, 255)),
+        g: Math.max(0, Math.min(g, 255)),
+        b: Math.max(0, Math.min(b, 255))
+    };
 }
 
 function setPixel(imageDataArray, x, y, color) {
@@ -164,11 +184,22 @@ function pre(preValue){
             maxIterations = 1000;
             zoom = 175;
             break;
+        case 'continuous':
+            sequenceStarted = true;
+            zoom = 100;
+            maxIterations = 50;
+            document.getElementById('color').value = "#000000";
+            renderContinuousSequence();
+            break;
         default:
             constantX = -0.7;
             constantY = 0.27015;
-            maxIterations = 1000;
+            maxIterations = 20;
             zoom = 175;
+            // constantX = -0.7;
+            // constantY = 0.27015;
+            // maxIterations = 1000;
+            // zoom = 175;
     }
 
     document.getElementById('constantX').value = constantX;
@@ -181,8 +212,33 @@ function pre(preValue){
     renderJulia();
 }
 
+let sequenceStarted = false;
+let currentAngle = 0;
+const angleIncrement = 0.005;
+
+function renderContinuousSequence() {
+    if (!sequenceStarted) {
+        return;
+    }
+    document.getElementById('constantX').value = 0.7885 * Math.cos(currentAngle);
+    document.getElementById('constantY').value = 0.7885 * Math.sin(currentAngle);
+
+    renderJulia();
+
+    currentAngle += angleIncrement;
+    if (currentAngle > 2 * Math.PI) {
+        currentAngle = 0;
+    }
+
+    requestAnimationFrame(renderContinuousSequence);
+}
+
 document.getElementById('pre').addEventListener('change', function() {
     const preValue = this.value;
+    pre(preValue);
+    if (preValue !== 'continuous') {
+        sequenceStarted = false;
+    }
     pre(preValue);
 });
 
