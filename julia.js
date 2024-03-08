@@ -194,12 +194,8 @@ function pre(preValue){
         default:
             constantX = -0.7;
             constantY = 0.27015;
-            maxIterations = 20;
+            maxIterations = 1000;
             zoom = 175;
-            // constantX = -0.7;
-            // constantY = 0.27015;
-            // maxIterations = 1000;
-            // zoom = 175;
     }
 
     document.getElementById('constantX').value = constantX;
